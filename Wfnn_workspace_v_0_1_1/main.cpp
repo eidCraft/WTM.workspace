@@ -9,14 +9,19 @@ int main(int argc, char *argv[])
   MainWindow w;
   w.show();
 //fwefwef
-  LearningTab learningTab;
+
+
 
   QTabWidget* tabWidget = w.findChild<QTabWidget*>("tabWidget");
 
   tabWidget->removeTab(0);
   tabWidget->removeTab(0);
 
-  tabWidget->addTab(&learningTab, QString("Crete learning session"));
+  LearningTab learningTab;
+  learningTab.setParentWidget(tabWidget);
+
+
+  tabWidget->addTab(&learningTab, QString("Create learning session"));
 
   return a.exec();
 }

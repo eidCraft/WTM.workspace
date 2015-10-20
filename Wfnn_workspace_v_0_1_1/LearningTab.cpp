@@ -3,6 +3,8 @@
 
 #include <QFileDialog>
 
+#include "LearningResult.h"
+
 #include "Wfnn/NetworkManager.h"
 #include "Wfnn/ScenarioManager.h"
 #include "Wfnn/EvoAgentManager.h"
@@ -103,6 +105,27 @@ LearningTab::makeLearningSession()
 
   scenariosSet->add(firstScenario);
 
+  EvaluatedAgentsGroup* resultingAgents;
+  resultingAgents = evoController.evolve(agent, scenariosSet);
 
-  evoController.evolve(agent, scenariosSet);
+  createResultTab(resultingAgents);
+}
+
+
+void
+LearningTab::createResultTab(EvaluatedAgentsGroup* resultingAgents)
+{
+  LearningResult* learningResult = new LearningResult(resultingAgents);
+
+  //QObject* parent = this->parentWidget();
+
+  //((QTabWidget*)parent)->addTab(learningResult, QString("Create learning session"));
+  ((QTabWidget*)parentWidget)->addTab(learningResult, QString("Create learning session"));
+    LearningResult; //->addTab(learningResult, QString("Learning results"));
+}
+
+void
+LearningTab::setParentWidget(QWidget* parentWidget)
+{
+  this->parentWidget = parentWidget;
 }

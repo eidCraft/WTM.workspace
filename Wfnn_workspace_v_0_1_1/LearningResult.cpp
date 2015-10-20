@@ -12,3 +12,8 @@ LearningResult::~LearningResult()
 {
   delete ui;
 }
+
+LearningResult::LearningResult(EvaluatedAgentsGroup* evaluatedAgentsGroup)
+{
+ evaluatedAgentsGroup->agents[0]-> ;
+}

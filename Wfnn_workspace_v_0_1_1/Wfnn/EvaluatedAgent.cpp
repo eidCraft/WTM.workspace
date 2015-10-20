@@ -46,14 +46,15 @@ EvaluatedAgentsGroup::EvaluatedAgentsGroup(EvaluatedAgent* agent)
 }
 
 
-EvoAgentsGroup*
+EvaluatedAgentsGroup*
 EvaluatedAgentsGroup::reduceToEvoAgents()
 {
-  EvoAgentsGroup* destGroup = new EvoAgentsGroup();
+  EvaluatedAgentsGroup* destGroup = new EvaluatedAgentsGroup();
 
   for (auto agent : agents)
   {
-    destGroup->add(static_cast<EvoAgent*>(agent));
+    //destGroup->add(static_cast<EvoAgent*>(agent));
+    destGroup->add(agent);
   }
   return destGroup;
 }

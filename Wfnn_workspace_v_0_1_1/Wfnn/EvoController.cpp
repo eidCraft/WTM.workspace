@@ -40,7 +40,7 @@ EvoController::isTimeLimitExcited()
 }
 
 
-EvoAgentsGroup*
+EvaluatedAgentsGroup*
 EvoController::evolve(EvoAgent* agent, ScenariosSet* scenarios)
 {
   EvoAgentsGroup*       currentAgents = new EvoAgentsGroup(agent);
@@ -62,7 +62,7 @@ EvoController::evolve(EvoAgent* agent, ScenariosSet* scenarios)
     if (stopEvo) break;
   }
 
-  return evaluedAgents->reduceToEvoAgents();;
+  return evaluedAgents->reduceToEvoAgents();
 }
 
 

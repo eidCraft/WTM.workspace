@@ -24,7 +24,7 @@ public:
 
   EvoController(EvoOptions*);
 
-  EvoAgentsGroup* evolve(EvoAgent*, ScenariosSet*);
+  EvaluatedAgentsGroup* evolve(EvoAgent*, ScenariosSet*);
 
 private:
   EvoOptions* options;

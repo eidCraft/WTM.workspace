@@ -3,6 +3,9 @@
 
 #include <QWidget>
 
+#include "Wfnn/EvaluatedAgent.h"
+
+
 namespace Ui {
 class LearningResult;
 }
@@ -15,6 +18,7 @@ public:
   explicit LearningResult(QWidget *parent = 0);
   ~LearningResult();
 
+  LearningResult(EvaluatedAgentsGroup*);
 private:
   Ui::LearningResult *ui;
 };

@@ -10,12 +10,14 @@ TestedAgent::TestedAgent()
 
 TestedAgent::~TestedAgent()
 {
+  results = new vector<SimulationResult*>();
 }
 
 
 TestedAgent::TestedAgent(ScenariosSet* scenarios)
 {
   this->scenarios = scenarios;
+  results = new vector<SimulationResult*>();
 }
 
 void
@@ -69,6 +71,8 @@ TestedAgent::TestedAgent(EvoAgent* baseAgent, ScenariosSet* scenariosSet)
   this->network = baseAgent->network;
 
   this->scenarios = scenariosSet;
+
+  this->results = new vector<SimulationResult*>();
 }
 
 

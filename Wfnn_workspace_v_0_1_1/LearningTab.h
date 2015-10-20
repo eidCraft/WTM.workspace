@@ -5,6 +5,8 @@
 
 #include "Wfnn/Scenario.h"
 #include "Wfnn/Network.h"
+#include "Wfnn/EvaluatedAgent.h"
+
 
 namespace Ui {
 class LearningTab;
@@ -17,6 +19,9 @@ class LearningTab : public QWidget
 public:
   explicit LearningTab(QWidget *parent = 0);
   ~LearningTab();
+
+
+  void setParentWidget(QWidget*);
 
 private slots:
  void handleNetworkFileLoadButton();
@@ -32,8 +37,12 @@ private:
   Scenario scenario;
   Network network;
 
+  QWidget* parentWidget;
+
   void setDefaultValues();
   void makeLearningSession();
+  void createResultTab(EvaluatedAgentsGroup* );
+
 };
 
 #endif // LEARNINGTAB_H

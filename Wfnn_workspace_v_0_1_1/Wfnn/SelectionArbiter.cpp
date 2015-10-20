@@ -58,7 +58,7 @@ SelectionArbiter::selectNarrowWay(EvaluatedAgentsGroup* initialGroup,
       }
     }
     isAlreadyInBestAgents = std::find(
-      bestAgentsIndexes.begin(), bestAgentsIndexes.end(), bestMarkOwner) ==
+      bestAgentsIndexes.begin(), bestAgentsIndexes.end(), bestMarkOwner) !=
       bestAgentsIndexes.end();
 
     if (! isAlreadyInBestAgents)

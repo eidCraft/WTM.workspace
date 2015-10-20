@@ -35,7 +35,6 @@ public:
 
   int getMarksAmount();
 
-private:
   void addMark(double);
   vector<double> marks;
 
@@ -53,11 +52,10 @@ public:
   int  getAgentsAmount();
   int  getMarksAmount();
 
-  EvoAgentsGroup* reduceToEvoAgents();
+  EvaluatedAgentsGroup* reduceToEvoAgents();
 
   EvaluatedAgent* operator[](int);
 
-private:
   vector<EvaluatedAgent*> agents;
 
 };
