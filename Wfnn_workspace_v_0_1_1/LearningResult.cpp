@@ -7,7 +7,7 @@ LearningResult::LearningResult(QWidget *parent) :
 {
   ui->setupUi(this);
 }
-///sdfsdf
+///sdf
 LearningResult::~LearningResult()
 {
   delete ui;
