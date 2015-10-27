@@ -14,8 +14,8 @@ EvoAgent::~EvoAgent()
 
 EvoAgent::EvoAgent(EvoAgent* source)
 {
-  this->genom = source->genom;
-  this->network = source->network;
+  this->genom = new Genom(source->genom);
+  this->network = new Network(source->network);
 }
 
 

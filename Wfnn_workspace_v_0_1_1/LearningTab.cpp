@@ -11,6 +11,7 @@
 #include "Wfnn/EvoAgent.h"
 #include "Wfnn/Options.h"
 #include "Wfnn/EvoController.h"
+#include "Wfnn/EvaluatedAgent.h"
 
 
 LearningTab::~LearningTab()
@@ -115,8 +116,10 @@ LearningTab::makeLearningSession()
 void
 LearningTab::createResultTab(EvaluatedAgentsGroup* resultingAgents)
 {
-  LearningResult* learningResult = new LearningResult(resultingAgents);
+  LearningResult* learningResult = new LearningResult();
 
+
+  learningResult->viewResult(resultingAgents);
   //QObject* parent = this->parentWidget();
 
   //((QTabWidget*)parent)->addTab(learningResult, QString("Create learning session"));

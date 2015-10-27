@@ -21,6 +21,7 @@ class  Genom
 {
 public:
 	Genom();
+  Genom(Genom*);
 	~Genom();
 
   vector<int> neurons;
@@ -41,7 +42,9 @@ private:
 
 class  StoredSynapse
 {
-public:
+  StoredSynapse();
+  StoredSynapse(StoredSynapse*);
+
   int presynapticNeuron;
   int postsynapticNeuron;
 

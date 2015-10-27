@@ -25,7 +25,7 @@ public:
   Network* network;
   Genom*   genom;
 
-  EvoAgent(EvoAgent*);
+  EvoAgent(EvoAgent *);
 
 private:
 

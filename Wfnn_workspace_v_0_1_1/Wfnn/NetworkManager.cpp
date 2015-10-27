@@ -26,7 +26,6 @@ NetworkManager::~NetworkManager()
 
 
 
-
 Network*
 NetworkManager::loadNetwork(string filename)
 {
@@ -218,7 +217,7 @@ void (NetworkManager::*f)(Network*, double))
   else
   {
     //// cout << "Can't find separator. Incorrect data." << endl;
-    //GEngine->AddOnScreenDebugMessage(-1, 100.f, FColor::Red, FString("Can'tfind separator. Incorrect data."));
+    //GEngine->AddOnScreenDebugMessage(-1, 100.f, FColor::Red, FString("Can't find separator. Incorrect data."));
   }
 }
 
@@ -232,7 +231,7 @@ Network* network, double value)
 
   switch (progressIndex)
   {
-  case 7:
+  case 8:
     // сброс индекса (т.к. он сохраняется между созданием разных сетей)
     progressIndex = 0;
   case 0:
@@ -255,6 +254,9 @@ Network* network, double value)
     break;
   case 6:
     network->options->maximumLinkLength = static_cast<int>(value);
+    break;
+  case 7:
+    network->options->maximumSynapicWeigth = static_cast<int>(value);
     break;
   default:
     // cout << "Index is out of NetworkParameters" << endl;
@@ -364,4 +366,3 @@ Network* network, double value)
   Neuron* neuron = network->findNeuronById(id);
   network->outputNeurons.emplace_back(neuron);
 }
-

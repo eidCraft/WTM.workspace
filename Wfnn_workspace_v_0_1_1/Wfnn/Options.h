@@ -29,6 +29,7 @@ public:
   int    relaxationDuration;
 
   int    maximumLinkLength;
+  double maximumSynapicWeigth;
 
   double addlChargeLeak;
   double addlChargeIncriment;

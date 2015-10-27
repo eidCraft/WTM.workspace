@@ -24,6 +24,7 @@ class   Network
 {
 public:
 	Network();
+  Network(Network*);
 	~Network();
 
   friend NetworkManager;
@@ -39,7 +40,7 @@ public:
 
   string toString();
 
-private:
+
   vector<Neuron*> neurons;
 
   vector<Neuron*> inputNeurons;

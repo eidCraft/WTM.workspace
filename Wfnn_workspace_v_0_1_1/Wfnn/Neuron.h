@@ -84,8 +84,14 @@ public:
   double fullCharge;
 
 
-  void initializeBaseCharges();
+  bool relaxWillEnd();
 
+  std::vector< std::vector<Synapse*> >* signalsSources;
+
+  void initializeBaseCharges();
+  void sendSynapticSignal(int, double, Synapse*);
+  void saveSignalSource(int, Synapse*);
+  void linksCorrectFunction(double*);
 
 };
 

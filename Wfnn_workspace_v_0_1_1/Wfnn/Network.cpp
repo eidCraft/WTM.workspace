@@ -3,6 +3,7 @@
 #include "Network.h"
 
 
+
 Network::~Network()
 {
 }
@@ -80,10 +81,23 @@ Network::makeSimulationTact()
     //}
     //GEngine->AddOnScreenDebugMessage(-1, 100.f, FColor::Red, FString("}"));
 
-
+    static int counter;
+    counter ++;
   int neuronsAmount = neurons.size();
   for (int i = 0; i != neuronsAmount; i++)
   {
+
+    bool isTimeToStopRelax = neurons[i]->isRelax() && neurons[i]->isRelaxationTimeExceeded();
+    if (isTimeToStopRelax)
+    {
+      neurons[i]->goToInactiveState();
+    }
+
+    bool isTimeToActivate = neurons[i]->isInactiv() && neurons[i]->isActivationThresholdExceeded();
+    if (isTimeToActivate)
+    {
+      neurons[i]->goToActiveState();
+    }
 
     bool isNeuronActiv = neurons[i]->isActiv();
     if (isNeuronActiv)
@@ -95,38 +109,15 @@ Network::makeSimulationTact()
       }
       else
       {
-        //char buff[20];
-        //itoa(i, buff, 10);
-        //GEngine->AddOnScreenDebugMessage(-1, 100.f, FColor::Red, FString(buff));
-
         neurons[i]->spreadNeuronActivity();
       }
     }
     else
     {
       neurons[i]->addLeak();
-
-      bool isNeuronRelax = neurons[i]->isRelax();
-      if (isNeuronRelax)
-      {
-        bool isTimeToStopRelax = neurons[i]->isRelaxationTimeExceeded();
-        if (isTimeToStopRelax)
-        {
-          neurons[i]->goToInactiveState();
-        }
-      }
-      else
-      {
-        bool isTimeToActivate = neurons[i]->isActivationThresholdExceeded();
-        if (isTimeToActivate)
-        {
-          neurons[i]->goToActiveState();
-        }
-      }
     }
-    neurons[i]->makeChargeStep();
     neurons[i]->incrementCounters();
-
+    neurons[i]->makeChargeStep();
   }
 }
 
@@ -147,4 +138,30 @@ int
 Network::getInputsAmount()
 {
   return inputNeurons.size();
+}
+
+
+Network::Network(Network* network)
+{
+  this->name = network->name;
+  this->options = network->options;
+  this->outputNeuronsAmount = network->outputNeuronsAmount;
+
+  this->neurons = new vector<Neuron*>(network->neurons.size());
+  for (Neuron* neuron : network->neurons)
+  {
+    this->neurons.emplace_back(new Neuron(neuron));
+  }
+
+  this->inputNeurons = new vector<Neuron*>(network->inputNeurons.size());
+  for (Neuron* neuron : network->inputNeurons)
+  {
+    this->inputNeurons.emplace_back(this->findNeuronById(neuron->id));
+  }
+
+  this->outputNeurons = new vector<Neuron*>(network->outputNeurons.size());
+  for (Neuron* neuron : network->outputNeurons)
+  {
+    this->outputNeurons.emplace_back(this->findNeuronById(neuron->id));
+  }
 }

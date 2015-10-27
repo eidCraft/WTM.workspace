@@ -45,10 +45,10 @@ MutationController::mutate(EvoAgent* sourceAgent)
 {
   EvoAgent* destAgent = new EvoAgent(sourceAgent);
 
-  neuronsDeleteSection(destAgent->genom);
+//  neuronsDeleteSection(destAgent->genom);
   neuronsCreateSection(destAgent->genom);
 
-  synapsesDeleteSection(destAgent->genom);
+  //synapsesDeleteSection(destAgent->genom);
   synapsesCreateSection(destAgent->genom);
 
   return destAgent;
@@ -152,27 +152,27 @@ MutationController::synapsesCreateSection(Genom* genom)
 int
 MutationController::getNeuronsDeleteAmout(Genom* genom, double percent)
 {
-  double totalAmount = genom->neurons.size() * percent;
-  return static_cast<int>(totalAmount);
+  double totalAmount = genom->neurons.size() * percent / 100;
+  return ceil(totalAmount);
 }
 
 int
 MutationController::getNeuronsCreateAmout(Genom* genom, double percent)
 {
-  double totalAmount = genom->neurons.size() * percent;
-  return static_cast<int>(totalAmount);
+  double totalAmount = genom->neurons.size() * percent / 100;
+  return ceil(totalAmount);
 }
 
 int
 MutationController::getSynapsesDeleteAmout(Genom* genom, double percent)
 {
-  double totalAmount = genom->synapses.size() * percent;
-  return static_cast<int>(totalAmount);
+  double totalAmount = genom->synapses.size() * percent / 100;
+  return ceil(totalAmount);
 }
 
 int
 MutationController::getSynapsesCreateAmout(Genom* genom, double percent)
 {
-  double totalAmount = genom->synapses.size() * percent;
-  return static_cast<int>(totalAmount);
+  double totalAmount = genom->synapses.size() * percent / 100;
+  return ceil(totalAmount);
 }

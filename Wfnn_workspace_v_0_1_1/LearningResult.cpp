@@ -13,7 +13,15 @@ LearningResult::~LearningResult()
   delete ui;
 }
 
-LearningResult::LearningResult(EvaluatedAgentsGroup* evaluatedAgentsGroup)
+
+void
+LearningResult::viewResult(EvaluatedAgentsGroup* evaluatedAgentsGroup)
 {
- evaluatedAgentsGroup->agents[0]-> ;
+  this->result = evaluatedAgentsGroup;
+
+  this->ui->nResultsValue->setText(QString::number(result->agents.size()));
+  //this->ui->ViewedResultValue->setMaximum(result->agents.size());
+
+  this->ui->nMarks->setText(QString::number(result->agents.at(0)->marks.at(0)));
+
 }

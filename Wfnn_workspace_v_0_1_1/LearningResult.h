@@ -18,9 +18,18 @@ public:
   explicit LearningResult(QWidget *parent = 0);
   ~LearningResult();
 
-  LearningResult(EvaluatedAgentsGroup*);
+  EvaluatedAgentsGroup* result;
+
+  void viewResult(EvaluatedAgentsGroup*);
+
 private:
   Ui::LearningResult *ui;
 };
+
+
+
+
+
+
 
 #endif // LEARNINGRESULT_H

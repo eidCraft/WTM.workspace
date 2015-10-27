@@ -51,6 +51,15 @@ void
 GenomManager::loadNeurons(ifstream& source, Genom* genom)
 {
   separateAndDissolveValues(source, genom, &GenomManager::yieldNeuronsFill);
+
+  size_t maxId = 0;
+
+  for (int neuronId : genom->neurons)
+  {
+    if (neuronId > maxId) maxId = neuronId;
+  }
+
+  genom->maxNeuronId = maxId;
 }
 
 void

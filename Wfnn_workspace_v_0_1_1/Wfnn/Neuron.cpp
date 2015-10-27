@@ -7,6 +7,7 @@
 #include "Options.h"
 
 
+
 Neuron::Neuron()
 {
 }
@@ -14,6 +15,8 @@ Neuron::Neuron()
 Neuron::~Neuron()
 {
 }
+
+
 
 
 
@@ -33,6 +36,12 @@ Neuron::Neuron(NetworkOptions* options, int id)
   isNeuronActiv = false;
   isNeuronRelax = false;
   isNeuronInactiv = true;
+
+
+//  std::vector< std::vector<int>* > synSignals (options->maximumLinkLength, &std::vector<int>(1, -1));
+ // signalsSources = &synSignals;
+  signalsSources = new vector< vector<Synapse*> >(options->maximumLinkLength, vector<Synapse*>());
+
 }
 
 
@@ -67,14 +76,14 @@ Neuron::isInactiv()
 bool
 Neuron::isActivityTimeExceeded()
 {
-  bool   isExceeded = (activityTime > options->activityDuration);
+  bool   isExceeded = (activityTime > options->activityDuration - 1);
   return isExceeded;
 }
 
 bool
 Neuron::isRelaxationTimeExceeded()
 {
-  bool   isExceeded = (relaxationTime > options->relaxationDuration);
+  bool   isExceeded = (relaxationTime > options->relaxationDuration - 1);
   return isExceeded;
 }
 
@@ -98,6 +107,7 @@ Neuron::goToActiveState()
   isNeuronActiv = true;
   isNeuronRelax = false;
 
+  correctLinks();
 }
 
 void
@@ -109,7 +119,7 @@ Neuron::goToRelaxState()
   isNeuronActiv = false;
   isNeuronRelax = true;
 
-  //correctLinks();
+
 }
 
 void
@@ -121,24 +131,43 @@ Neuron::goToInactiveState()
   isNeuronActiv = false;
   isNeuronRelax = false;
 
-  removeCurrentBaseCharge();
 }
 
+
+//void
+//Neuron::correctLinks()
+//{
+//  int synapsesAmount = synapses.size();
+//  for (int i = 0; i < synapsesAmount; i++)
+//  {
+//    bool isThisNeuronCauseActivity = synapses[i]->postNeuron->isActiv();
+//    if (isThisNeuronCauseActivity)
+//    {
+//      synapses[i]->linkWeight += options->linkPowerIncrement;
+//    }
+//  }
+//}
+
+
+void
+Neuron::linksCorrectFunction(double* currentWeigth)
+{
+  *currentWeigth = *currentWeigth + options->linkPowerIncrement;
+  if (*currentWeigth >= options->maximumSynapicWeigth)
+  {
+    *currentWeigth = options->maximumSynapicWeigth;
+  }
+}
 
 void
 Neuron::correctLinks()
 {
-  int synapsesAmount = synapses.size();
-  for (int i = 0; i < synapsesAmount; i++)
+  for (Synapse* presynapticNeuron : signalsSources->at(baseChargeIndex))
   {
-    bool isThisNeuronCauseActivity = synapses[i]->postNeuron->isActiv();
-    if (isThisNeuronCauseActivity)
-    {
-      synapses[i]->linkWeight += options->linkPowerIncrement;
-    }
+    linksCorrectFunction(&(presynapticNeuron->linkWeight));
   }
+  signalsSources->at(baseChargeIndex).clear();
 }
-
 
 void
 Neuron::spreadNeuronActivity()
@@ -146,12 +175,34 @@ Neuron::spreadNeuronActivity()
   int synapsesAmount = synapses.size();
   for (int i = 0; i < synapsesAmount; i++)
   {
-    synapses[i]->postNeuron->addBaseChargeBeforehand(
+    //synapses[i]->postNeuron->addBaseChargeBeforehand(
+    //  synapses[i]->linkLenght,
+    //  synapses[i]->linkWeight
+    //  );
+    synapses[i]->postNeuron->sendSynapticSignal(
       synapses[i]->linkLenght,
-      synapses[i]->linkWeight
+      synapses[i]->linkWeight,
+      synapses[i]
       );
+
   }
 }
+
+void
+Neuron::sendSynapticSignal(int timeShift, double value, Synapse* synapse)
+{
+  this->addBaseChargeBeforehand(timeShift, value);
+
+  this->saveSignalSource(timeShift, synapse);
+}
+
+
+void
+Neuron::saveSignalSource(int timeShift, Synapse* synapse)
+{
+  signalsSources->at(getShiftedBaseChargeIndex(timeShift)).emplace_back(synapse);
+}
+
 
 
 void
@@ -164,10 +215,10 @@ Neuron::addBaseChargeBeforehand(int timeShift, double value)
 void
 Neuron::addBaseChargeLikeNetworkInput(double value)
 {
-  if (isNeuronInactiv)
-  {
+ // if (isNeuronInactiv)
+  //{
     baseCharges[baseChargeIndex] += value;
-  }
+  //}
 }
 
 
@@ -247,15 +298,28 @@ Neuron::isOnNextMomentNeuronCanTakeCharge()
 
   return true;
 }
+
+bool
+Neuron::relaxWillEnd()
+{
+  bool   willEnd = (relaxationTime >= options->relaxationDuration );
+  return willEnd;
+}
+
 void
 Neuron::makeChargeStep()
 {
-  bool isNeuronCanTakeCharge = isInactiv();
 
+  bool isNeuronCanTakeCharge = isInactiv() || relaxWillEnd();
 
   if (!isNeuronCanTakeCharge)
   {
     removeNextCharge();
+  }
+
+  if (relaxWillEnd())
+  {
+    removeCurrentBaseCharge();
   }
 
 
