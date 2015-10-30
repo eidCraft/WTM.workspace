@@ -18,6 +18,7 @@ class Neuron
 {
 public:
   Neuron();
+  Neuron(Neuron*);
   ~Neuron();
 
   friend NetworkManager;
@@ -98,6 +99,9 @@ public:
 class  Synapse
 {
 public:
+  Synapse();
+  Synapse(Synapse*, Neuron *postNeuron);
+
   int     linkLenght;
   double  linkWeight;
   Neuron* postNeuron;

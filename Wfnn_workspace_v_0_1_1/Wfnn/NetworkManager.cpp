@@ -10,6 +10,7 @@
 
 #include "EvoAgent.h"
 #include "Network.h"
+#include "Genom.h"
 
 class Network;
 
@@ -366,3 +367,112 @@ Network* network, double value)
   Neuron* neuron = network->findNeuronById(id);
   network->outputNeurons.emplace_back(neuron);
 }
+
+
+
+
+
+
+
+Network*
+NetworkManager::createFromGenom(Genom* genom)
+{
+  Network* network = new Network();
+
+  loadNetworkName(genom, network);
+  loadNetworkOptions(genom, network);
+  loadNetworkNeurons(genom, network);
+  loadNetworkSynapses(genom, network);
+  loadNetworkInputs(genom, network);
+  loadNetworkOutputs(genom, network);
+
+  return network;
+}
+
+
+void
+NetworkManager::loadNetworkName(
+Genom* genom, Network* network)
+{
+  network->name = genom->name;
+}
+
+
+void
+NetworkManager::loadNetworkOptions(
+Genom* genom, Network* network)
+{
+  network->options = genom->options;
+}
+
+
+void
+NetworkManager::loadNetworkNeurons(
+Genom* genom, Network* network)
+{
+  Neuron* newNeuron;
+
+  for (int neuronId : genom->neurons)
+  {
+    newNeuron= new Neuron(network->options, neuronId);
+    network->neurons.emplace_back(newNeuron);
+  }
+}
+
+
+
+//vector<int> neurons;
+//vector<StoredSynapse*> synapses;
+//NetworkOptions* options;
+
+//int maxNeuronId;
+
+
+//int presynapticNeuron;
+//int postsynapticNeuron;
+
+//double length;
+//double weigth;
+
+
+void
+NetworkManager::loadNetworkSynapses(
+Genom* genom, Network* network)
+{
+  Synapse* newSynapse;
+  for (StoredSynapse* storedSynapse : genom->synapses)
+  {
+    newSynapse = new Synapse();
+
+    newSynapse->linkLenght = storedSynapse->length;
+    newSynapse->linkWeight = storedSynapse->weigth;
+    newSynapse->postNeuron = network->findNeuronById(storedSynapse->postsynapticNeuron);
+
+    network->findNeuronById(storedSynapse->presynapticNeuron)->synapses.emplace_back(newSynapse);
+     }
+}
+
+void
+NetworkManager::loadNetworkInputs(Genom* genom, Network* network)
+{
+  for (int inputNeuronId : genom->inputNeurons)
+  {
+    network->inputNeurons.emplace_back(network->findNeuronById(inputNeuronId));
+  }
+}
+
+
+void
+NetworkManager::loadNetworkOutputs(Genom* genom, Network* network)
+{
+  for (int outputNeuronId : genom->outputNeurons)
+  {
+    network->outputNeurons.emplace_back(network->findNeuronById(outputNeuronId));
+  }
+}
+
+
+
+
+
+

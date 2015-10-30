@@ -10,7 +10,9 @@ using std::ifstream;
 using std::string;
 
 #include "Network.h"
+#include "Genom.h"
 
+class Genom;
 class Network;
 
 /**
@@ -24,6 +26,8 @@ public:
 
   Network* loadNetwork(string);
   void     saveNetwork(string, Network*);
+
+  Network* createFromGenom(Genom*);
 
 private:
   bool isIdentificatorValid(ifstream&);
@@ -45,4 +49,17 @@ private:
   void yieldNetworkSynapsesFill(Network*, double);
   void yieldNetworkInputsFill(Network*, double);
   void yieldNetworkOutputsFill(Network*, double);
+
+
+
+
+  void loadNetworkName(Genom*, Network*);
+  void loadNetworkOptions(Genom*, Network*);
+  void loadNetworkNeurons(Genom*, Network*);
+  void loadNetworkSynapses(Genom*, Network*);
+  void loadNetworkInputs(Genom*, Network*);
+  void loadNetworkOutputs(Genom*, Network*);
+
+
+
 };

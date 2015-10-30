@@ -24,9 +24,14 @@ public:
   Genom(Genom*);
 	~Genom();
 
+  string name;
+
   vector<int> neurons;
   vector<StoredSynapse*> synapses;
   NetworkOptions* options;
+
+  vector<int> inputNeurons;
+  vector<int> outputNeurons;
 
   int maxNeuronId;
 
@@ -35,13 +40,13 @@ public:
   void removeNeuron(int);
   void removeSynapse(int);
 
-private:
 
 };
 
 
 class  StoredSynapse
 {
+public:
   StoredSynapse();
   StoredSynapse(StoredSynapse*);
 

@@ -16,7 +16,21 @@ Neuron::~Neuron()
 {
 }
 
+Neuron::Neuron(Neuron* neuron)
+{
+//  this->id = neuron->id;
+//  this->relaxationTime = neuron->relaxationTime;
+//  this->activityTime = neuron->activityTime;
 
+//  this->options = neuron->options;
+
+////  std::vector<Synapse*> synapses;
+//  this->synapses =  vector<Synapse*>(neuron->synapses.size());
+//  for (Synapse* synapse : neuron->synapses)
+//  {
+//    this->synapses.emplace_back(new Synapse(synapse), );
+//  }
+}
 
 
 
@@ -397,4 +411,15 @@ Neuron::toString()
 
   string result = resultStream.str();
   return result;
+}
+
+
+Synapse::Synapse(Synapse* synapse, Neuron* postNeuron)
+{
+  this->linkLenght = synapse->linkLenght;
+  this->linkWeight = synapse->linkWeight;
+  //this->postNeuron; = postNeuron;
+
+
+  // Forgot this. Substute to network creation from genom.
 }

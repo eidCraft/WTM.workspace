@@ -147,21 +147,24 @@ Network::Network(Network* network)
   this->options = network->options;
   this->outputNeuronsAmount = network->outputNeuronsAmount;
 
-  this->neurons = new vector<Neuron*>(network->neurons.size());
+  this->neurons =  vector<Neuron*>(network->neurons.size());
   for (Neuron* neuron : network->neurons)
   {
     this->neurons.emplace_back(new Neuron(neuron));
   }
 
-  this->inputNeurons = new vector<Neuron*>(network->inputNeurons.size());
+  this->inputNeurons = vector<Neuron*>(network->inputNeurons.size());
   for (Neuron* neuron : network->inputNeurons)
   {
     this->inputNeurons.emplace_back(this->findNeuronById(neuron->id));
   }
 
-  this->outputNeurons = new vector<Neuron*>(network->outputNeurons.size());
+  this->outputNeurons = vector<Neuron*>(network->outputNeurons.size());
   for (Neuron* neuron : network->outputNeurons)
   {
     this->outputNeurons.emplace_back(this->findNeuronById(neuron->id));
   }
 }
+
+
+Synapse::Synapse(){}

@@ -32,20 +32,31 @@ GenomManager::loadGenom(std::string filename)
   ifstream source(filename);
 
   string skip;
-  source >> skip >> skip;
+  source >> skip;
 
+  loadName(source, destGenom);
   loadOptions(source, destGenom);
   loadNeurons(source, destGenom);
   loadSynapses(source, destGenom);
+  loadInputs(source, destGenom);
+  loadOutputs(source, destGenom);
 
   return destGenom;
 }
+
+void
+GenomManager::loadName(ifstream& source, Genom* genom)
+{
+  separateAndDissolveValues(source, genom, &GenomManager::nameFill);
+}
+
 
 void
 GenomManager::loadOptions(ifstream& source, Genom* genom)
 {
   separateAndDissolveValues(source, genom, &GenomManager::yieldOptionsFill);
 }
+
 
 void
 GenomManager::loadNeurons(ifstream& source, Genom* genom)
@@ -109,11 +120,17 @@ void (GenomManager::*f)(Genom*, string))
 }
 
 
+void
+GenomManager::nameFill(
+  Genom* genom, string value)
+{
+  genom->name = value;
+}
 
 
 void
 GenomManager::yieldOptionsFill(
-Genom* genom, string value)
+  Genom* genom, string value)
 {
   static int progressIndex;
 
@@ -216,4 +233,50 @@ GenomManager::yieldSynapsesFill(Genom* genom, string synapsePart)
     yieldProgressIndex++;
   }
 }
+
+
+
+
+
+
+
+void
+GenomManager::loadInputs(ifstream& source, Genom* genom)
+{
+  separateAndDissolveValues(source, genom, &GenomManager::yieldInputsFill);
+}
+
+
+void
+GenomManager::loadOutputs(ifstream& source, Genom* genom)
+{
+  separateAndDissolveValues(source, genom, &GenomManager::yieldOutputsFill);
+}
+
+
+
+
+
+
+
+
+void
+GenomManager::yieldInputsFill(
+Genom* genom, string value)
+{
+  int id = stod(value);
+  genom->inputNeurons.emplace_back(id);
+}
+
+
+
+void
+GenomManager::yieldOutputsFill(
+Genom* genom, string value)
+{
+  int id = stod(value);
+  genom->outputNeurons.emplace_back(id);
+}
+
+
 

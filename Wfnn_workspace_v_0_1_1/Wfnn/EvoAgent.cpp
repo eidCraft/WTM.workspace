@@ -15,7 +15,10 @@ EvoAgent::~EvoAgent()
 EvoAgent::EvoAgent(EvoAgent* source)
 {
   this->genom = new Genom(source->genom);
-  this->network = new Network(source->network);
+
+  NetworkManager networkManager;
+
+  this->network =  networkManager.createFromGenom(this->genom);
 }
 
 

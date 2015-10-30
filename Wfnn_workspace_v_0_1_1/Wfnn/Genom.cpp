@@ -3,6 +3,8 @@
 
 #include "Genom.h"
 
+Genom::Genom(){}
+
 
 Genom::~Genom()
 {
