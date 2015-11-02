@@ -35,15 +35,15 @@ LearningTab::LearningTab(QWidget *parent) :
 void
 LearningTab::setDefaultValues()
 {
-  ui->NeuronsCreatePercentValue->setValue(5.0f);
-  ui->NeuronsDeletePercentValue->setValue(5.0f);
-  ui->SynapsesDeletePercentValue->setValue(5.0f);
-  ui->SynapsesCreatePercentValue->setValue(5.0f);
+  ui->NeuronsCreatePercentValue->setValue(10.0f);
+  ui->NeuronsDeletePercentValue->setValue(10.0f);
+  ui->SynapsesDeletePercentValue->setValue(10.0f);
+  ui->SynapsesCreatePercentValue->setValue(10.0f);
 
-  ui->MutationOutputValue->setValue(5);
+  ui->MutationOutputValue->setValue(10);
   ui->SelectionOutputValue->setValue(5);
 
-  ui->TimeLimitValue->setValue(3600);
+  ui->EpochsLimitValue->setValue(50);
 }
 
 void
@@ -86,14 +86,14 @@ LearningTab::makeLearningSession()
   EvoAgent* agent = agentManager.load(std::string("D:\\Wfnn.data\\Wfnn.1\\Network.txt"));
 
   EvoOptions* options = new EvoOptions();
-  options->setNeuronsDeletePercent(1);
-  options->setNeuronsCreatePercent(2);
-  options->setSynapsesDeletePercent(1);
-  options->setSynapsesCreatePercent(2);
-  options->setMutationOutput(5);
-  options->setSelectionOutput(1);
-  options->setTimeLimit(3600);
-
+  options->setNeuronsDeletePercent(ui->NeuronsDeletePercentValue->value());
+  options->setNeuronsCreatePercent(ui->NeuronsCreatePercentValue->value());
+  options->setSynapsesDeletePercent(ui->SynapsesDeletePercentValue->value());
+  options->setSynapsesCreatePercent(ui->SynapsesCreatePercentValue->value());
+  options->setMutationOutput(ui->MutationOutputValue->value());
+  options->setSelectionOutput(ui->SelectionOutputValue->value());
+  options->setEpochsLimit(ui->EpochsLimitValue->value());
+  options->setEvolutionAccurency(50.0f);
 
   EvoController evoController(options);
 
@@ -109,7 +109,7 @@ LearningTab::makeLearningSession()
   EvaluatedAgentsGroup* resultingAgents;
   resultingAgents = evoController.evolve(agent, scenariosSet);
 
-  createResultTab(resultingAgents);
+   createResultTab(resultingAgents);
 }
 
 
@@ -124,7 +124,7 @@ LearningTab::createResultTab(EvaluatedAgentsGroup* resultingAgents)
 
   //((QTabWidget*)parent)->addTab(learningResult, QString("Create learning session"));
   ((QTabWidget*)parentWidget)->addTab(learningResult, QString("Create learning session"));
-    LearningResult; //->addTab(learningResult, QString("Learning results"));
+
 }
 
 void

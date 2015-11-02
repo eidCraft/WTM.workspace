@@ -12,10 +12,23 @@ Scenario::Scenario()
 Scenario::~Scenario()
 {
 }
+
+
+ScenariosSet::ScenariosSet()
+{
+  maximumMark = 0;
+}
+
+
 void
 ScenariosSet::add(Scenario* scenario)
 {
-  if (scenario != nullptr) scenarios.emplace_back(scenario);
+  if (scenario != nullptr)
+  {
+    scenarios.emplace_back(scenario);
+
+    maximumMark += scenario->outputData.size()  * scenario->outputsAmount;
+  }
   else
   {
     std::cout << "ScenarioSet. Adding an empty scenario.";

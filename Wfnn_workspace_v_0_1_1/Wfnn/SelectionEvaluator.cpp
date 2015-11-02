@@ -12,6 +12,9 @@ SelectionEvaluator::evaluate(TestedAgentsGroup* testedAgents)
   {
     evaluatedAgents->add(evaluateAgent((*testedAgents)[i]));
   }
+
+  evaluatedAgents->sortByMark();
+
   return evaluatedAgents;
 }
 

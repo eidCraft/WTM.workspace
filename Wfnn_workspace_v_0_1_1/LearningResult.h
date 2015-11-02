@@ -22,6 +22,9 @@ public:
 
   void viewResult(EvaluatedAgentsGroup*);
 
+  void handleViewedResultValue(int);
+  void refreshView(int);
+
 private:
   Ui::LearningResult *ui;
 };

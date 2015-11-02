@@ -21,10 +21,10 @@ MutationController::MutationController(MutationOptions* options)
 }
 
 
-EvoAgentsGroup*
-MutationController::mutateAgents(EvoAgentsGroup* agents)
+EvaluatedAgentsGroup*
+MutationController::mutateAgents(EvaluatedAgentsGroup* agents)
 {
-  EvoAgentsGroup* destGroup = new EvoAgentsGroup();
+  EvaluatedAgentsGroup* destGroup = new EvaluatedAgentsGroup();
 
   int agentsAmount = agents->size();
   for (int i = 0; i != agentsAmount; i++)
@@ -32,7 +32,7 @@ MutationController::mutateAgents(EvoAgentsGroup* agents)
     int mutantsFromEachAgent = options->mutationOutput;
     for (int j = 0; j < mutantsFromEachAgent; j++)
     {
-      EvoAgent* newMutant = mutate((*agents)[i]);
+      EvaluatedAgent* newMutant = mutate((*agents)[i]);
       destGroup->add(newMutant);
     }
   }

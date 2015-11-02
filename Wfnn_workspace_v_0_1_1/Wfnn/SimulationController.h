@@ -5,7 +5,7 @@
 #include "EvoAgent.h"
 #include "Scenario.h"
 #include "TestedAgent.h"
-
+#include "EvaluatedAgent.h"
 
 /**
  * 
@@ -17,13 +17,13 @@ public:
 	~SimulationController();
 
   SimulationController(SimulationOptions*);
-  TestedAgentsGroup* makeSimulations(ScenariosSet*, EvoAgentsGroup*);
+  TestedAgentsGroup* makeSimulations(ScenariosSet*, EvaluatedAgentsGroup *);
 
 private:
   SimulationOptions* options;
 
-  bool compatibilityCheck(ScenariosSet*, EvoAgentsGroup*);
-  SimulationResult* simulate(Scenario*, EvoAgent*);
+  bool compatibilityCheck(ScenariosSet*, EvaluatedAgentsGroup*);
+  SimulationResult* simulate(Scenario*, EvaluatedAgent *);
 
   void setInputDataSequentially(Scenario*, Network*);
 

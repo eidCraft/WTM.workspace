@@ -47,7 +47,9 @@ GenomManager::loadGenom(std::string filename)
 void
 GenomManager::loadName(ifstream& source, Genom* genom)
 {
-  separateAndDissolveValues(source, genom, &GenomManager::nameFill);
+  string name;
+  source >> name;
+  genom->name = name;
 }
 
 

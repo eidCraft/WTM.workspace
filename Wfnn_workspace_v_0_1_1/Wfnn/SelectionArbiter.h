@@ -16,10 +16,10 @@ public:
 	SelectionArbiter();
 	~SelectionArbiter();
 
-  EvaluatedAgentsGroup* select(EvaluatedAgentsGroup*);
+  EvaluatedAgentsGroup* select(EvaluatedAgentsGroup*, size_t);
 
 private:
-  void selectNarrowWay(EvaluatedAgentsGroup*, EvaluatedAgentsGroup*);
+  void selectTopAgents(EvaluatedAgentsGroup*, EvaluatedAgentsGroup*, size_t);
   void selectWideWay(EvaluatedAgentsGroup*, EvaluatedAgentsGroup*);
 
 };

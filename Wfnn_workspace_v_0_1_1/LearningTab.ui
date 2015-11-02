@@ -182,7 +182,7 @@
     <string>SelectionOutput</string>
    </property>
   </widget>
-  <widget class="QLabel" name="TimeLimit">
+  <widget class="QLabel" name="EpochsLimit">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -192,10 +192,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>TimeLimit</string>
+    <string>EpochsLimit</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="TimeLimitValue">
+  <widget class="QSpinBox" name="EpochsLimitValue">
    <property name="geometry">
     <rect>
      <x>150</x>

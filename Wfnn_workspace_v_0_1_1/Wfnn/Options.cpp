@@ -25,21 +25,21 @@ void
 EvoOptions::setNeuronsCreatePercent(double percent)
 {
   this->mutationOptions->neuronsCreatePercent = percent;
-};
+}
 
 
 void
 EvoOptions::setSynapsesDeletePercent(double percent)
 {
   this->mutationOptions->synapsesDeletePercent = percent;
-};
+}
 
 
 void
 EvoOptions::setSynapsesCreatePercent(double percent)
 {
   this->mutationOptions->synapsesCreatePercent = percent;
-};
+}
 
 
 void
@@ -62,7 +62,15 @@ EvoOptions::setSelectionOutput (int amount)
 }
 
 void
-EvoOptions::setTimeLimit(int timeLimit)
+EvoOptions::setEpochsLimit(int epochsLimit)
 {
-  this->timeLimit = timeLimit;
+  this->epochsLimit = epochsLimit;
+}
+
+
+
+void
+EvoOptions::setEvolutionAccurency(double accurancy)
+{
+  this->selectionOptions->evolutionAccurancy = accurancy;
 }

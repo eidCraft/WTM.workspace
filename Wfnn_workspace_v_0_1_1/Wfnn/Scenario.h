@@ -39,12 +39,15 @@ private:
 class  ScenariosSet
 {
 public:
+  ScenariosSet();
   void add(Scenario*);
   int  size();
 
   Scenario* operator[](int);
 
-private:
+
   vector<Scenario*> scenarios;
+
+  double maximumMark;
 
 };

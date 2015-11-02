@@ -32,12 +32,15 @@ public:
   friend SelectionArbiter;
 
   EvaluatedAgent(TestedAgent*);
+  EvaluatedAgent(EvoAgent*);
 
   int getMarksAmount();
 
   void addMark(double);
   vector<double> marks;
+  double totalMark;
 
+  double maximumMark;
 };
 
 
@@ -46,13 +49,17 @@ class  EvaluatedAgentsGroup
 {
 public:
   EvaluatedAgentsGroup();
-  EvaluatedAgentsGroup(EvaluatedAgent*);
+  EvaluatedAgentsGroup(EvoAgent*);
+
+  void swapAgents(int, int);
+  void sortByMark();
 
   void add(EvaluatedAgent*);
   int  getAgentsAmount();
   int  getMarksAmount();
+  size_t size();
 
-  EvaluatedAgentsGroup* reduceToEvoAgents();
+  EvoAgentsGroup *reduceToEvoAgents();
 
   EvaluatedAgent* operator[](int);
 

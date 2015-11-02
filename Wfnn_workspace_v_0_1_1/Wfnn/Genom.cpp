@@ -3,7 +3,10 @@
 
 #include "Genom.h"
 
-Genom::Genom(){}
+Genom::Genom()
+{
+  this->options = new NetworkOptions();
+}
 
 
 Genom::~Genom()
@@ -19,9 +22,10 @@ Genom::Genom(Genom* genom)
 
  //  vector<StoredSynapse*> synapses;
 
-  this->maxNeuronId = genom->maxNeuronId;
+  this->name = genom->name;
   this->options = genom->options;
   this->neurons = genom->neurons;
+  this->maxNeuronId = genom->maxNeuronId;
 
   this->synapses = vector<StoredSynapse*>();
   for (StoredSynapse* synapse : genom->synapses)

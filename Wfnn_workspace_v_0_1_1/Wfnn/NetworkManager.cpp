@@ -469,6 +469,7 @@ NetworkManager::loadNetworkOutputs(Genom* genom, Network* network)
   {
     network->outputNeurons.emplace_back(network->findNeuronById(outputNeuronId));
   }
+  network->outputNeuronsAmount = network->outputNeurons.size();
 }
 
 

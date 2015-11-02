@@ -16,7 +16,7 @@
   <widget class="QLabel" name="nResultsLabel">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>20</y>
      <width>81</width>
      <height>16</height>
@@ -32,7 +32,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>130</x>
      <y>20</y>
      <width>61</width>
      <height>20</height>
@@ -42,7 +42,7 @@
   <widget class="QLabel" name="ViewedResultLabel">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>50</y>
      <width>81</width>
      <height>16</height>
@@ -55,7 +55,7 @@
   <widget class="QSpinBox" name="ViewedResultValue">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>130</x>
      <y>50</y>
      <width>42</width>
      <height>22</height>
@@ -68,17 +68,56 @@
     <number>9999999</number>
    </property>
   </widget>
-  <widget class="QLineEdit" name="nMarks">
+  <widget class="QLineEdit" name="Mark">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>100</y>
+     <x>130</x>
+     <y>80</y>
      <width>61</width>
      <height>20</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="MarkLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>80</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Current agents mark</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="MaximumMark">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>110</y>
+     <width>61</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="MaxMarkLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Maximum mark</string>
    </property>
   </widget>
  </widget>

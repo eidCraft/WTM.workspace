@@ -32,10 +32,10 @@ private:
   MutationController*  mutationController;
   SelectionController* selectionController;
 
-  std::time_t beginTime;
+  size_t iCurrentEpoch;
 
 
   void startTimer();
-  bool isTimeLimitExcited();
+  bool isEpochsLimitExcited();
 
 };

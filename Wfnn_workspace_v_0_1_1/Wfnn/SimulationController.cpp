@@ -28,7 +28,7 @@ SimulationController::SimulationController(SimulationOptions* options)
 
 TestedAgentsGroup*
 SimulationController::makeSimulations(
-ScenariosSet* scenarios, EvoAgentsGroup* agents)
+ScenariosSet* scenarios, EvaluatedAgentsGroup* agents)
 {
   bool  isAllObjectCompetable = compatibilityCheck(scenarios, agents);
   if (!isAllObjectCompetable)
@@ -63,8 +63,7 @@ ScenariosSet* scenarios, EvoAgentsGroup* agents)
 
 
 SimulationResult*
-SimulationController::simulate(
-Scenario* scenario, EvoAgent* agent)
+SimulationController::simulate(Scenario* scenario, EvaluatedAgent *agent)
 {
   SimulationResult* result = new SimulationResult();
 
@@ -100,7 +99,7 @@ Scenario* scenario, Network* network)
 
 bool
 SimulationController::compatibilityCheck(
-ScenariosSet* scenarios, EvoAgentsGroup* agents)
+ScenariosSet* scenarios, EvaluatedAgentsGroup* agents)
 {
   bool isDataCompatible = true;
   bool localCompatibility = true;

@@ -35,6 +35,8 @@ public:
   double addlChargeIncriment;
   double activationThreshold;
   double linkPowerIncrement;
+
+
 };
 
 
@@ -55,14 +57,16 @@ public:
   void setSelectionOutput(int);
 
   void setSimulationEndDelay(int);
-  void setTimeLimit(int);
+  void setEpochsLimit(int);
   void setLearningPrecision(int);
 
+  void setEvolutionAccurency(double);
 private:
   MutationOptions*  mutationOptions;
   SelectionOptions* selectionOptions;
 
-  int timeLimit;
+  int epochsLimit;
+
 };
 
 
@@ -94,7 +98,7 @@ public:
 
   int    selectionOutput;
   double learningPrecision;
-
+  double evolutionAccurancy;
 
   SelectionOptions();
 

@@ -29,7 +29,7 @@ SelectionController::SelectionController(SelectionOptions* options)
 
 EvaluatedAgentsGroup*
 SelectionController::selectAgents(
-  EvoAgentsGroup* initialAgents, ScenariosSet* scenarios)
+  EvaluatedAgentsGroup* initialAgents, ScenariosSet* scenarios)
 {
   TestedAgentsGroup* testedAgents = simController->makeSimulations(
     scenarios, initialAgents);
@@ -38,7 +38,7 @@ SelectionController::selectAgents(
     testedAgents);
 
   EvaluatedAgentsGroup* selectedAgents = selectionArbiter->select(
-    evaluatedAgents);
+    evaluatedAgents, options->selectionOutput);
 
   learningGoalExcited = learningGoalChecking(selectedAgents);
 
@@ -49,19 +49,23 @@ SelectionController::selectAgents(
 bool
 SelectionController::isLearningGoalExcited()
 {
-  bool isExcited = true;
-
-
-
-
-  return isExcited;
+  return learningGoalExcited;
 }
 
 
+// Need to calculate maximum mark for each scenarion and maximum mark for scenarios set
 bool
-SelectionController::learningGoalChecking(EvaluatedAgentsGroup* agents)
+SelectionController::learningGoalChecking(EvaluatedAgentsGroup* agentsGroup)
 {
-  bool excited = true;
+  bool excited = false;
 
+//  size_t nAgents = agentsGroup->agents.size();
+  //for (size_t iAgent = 0; iAgent != nAgents; iAgent++)
+  //{
+//  double evolutionEndPercentThreshold =
+//      options->evolutionAccurancy * agentsGroup->agents.at(0);
+
+    //agentsGroup->agents.at(0)->totalMark >= ;
+  //}
   return excited;
 }

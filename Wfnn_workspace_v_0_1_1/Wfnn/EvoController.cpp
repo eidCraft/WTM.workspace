@@ -3,8 +3,11 @@
 
 #include "EvoController.h"
 
+#include "iostream"
+
 EvoController::EvoController()
 {
+  iCurrentEpoch = 0;
 }
 
 EvoController::~EvoController()
@@ -14,28 +17,21 @@ EvoController::~EvoController()
 
 EvoController::EvoController(EvoOptions* evoOptions)
 {
+  this->options = evoOptions;
+
   mutationController = new MutationController(
     evoOptions->mutationOptions);
 
   selectionController = new SelectionController(
     evoOptions->selectionOptions);
+
+  iCurrentEpoch = 0;
 }
-
-
-
-void
-EvoController::startTimer()
-{
-  beginTime = std::time(nullptr);
-}
-
 
 bool
-EvoController::isTimeLimitExcited()
+EvoController::isEpochsLimitExcited()
 {
-  std::time_t now = std::time(nullptr);
-
-  bool   isExcited = (now >= beginTime + options->timeLimit);
+  bool   isExcited = ++iCurrentEpoch >= options->epochsLimit;
   return isExcited;
 }
 
@@ -43,26 +39,22 @@ EvoController::isTimeLimitExcited()
 EvaluatedAgentsGroup*
 EvoController::evolve(EvoAgent* agent, ScenariosSet* scenarios)
 {
-  EvoAgentsGroup*       currentAgents = new EvoAgentsGroup(agent);
-  EvaluatedAgentsGroup* evaluedAgents;
-
-  startTimer();
+  EvaluatedAgentsGroup* currentAgents = new EvaluatedAgentsGroup(agent);
 
   bool stopEvo;
   while (true)
   {
     currentAgents = mutationController->mutateAgents(currentAgents);
 
-    evaluedAgents = selectionController->selectAgents(
+    currentAgents = selectionController->selectAgents(
       currentAgents, scenarios);
 
-    stopEvo = (selectionController->isLearningGoalExcited() ||
-      isTimeLimitExcited());
+    stopEvo = selectionController->isLearningGoalExcited();
+    stopEvo = stopEvo || isEpochsLimitExcited();
 
     if (stopEvo) break;
   }
-
-  return evaluedAgents->reduceToEvoAgents();
+  return currentAgents;
 }
 
 

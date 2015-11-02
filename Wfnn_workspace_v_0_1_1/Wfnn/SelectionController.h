@@ -22,7 +22,7 @@ public:
 
   SelectionController(SelectionOptions*);
 
-  EvaluatedAgentsGroup* selectAgents(EvoAgentsGroup*, ScenariosSet*);
+  EvaluatedAgentsGroup* selectAgents(EvaluatedAgentsGroup *, ScenariosSet*);
 
   bool isLearningGoalExcited();
 
@@ -32,7 +32,7 @@ private:
   SelectionEvaluator*   selectionEvaluator;
   SelectionArbiter*     selectionArbiter;
 
-  bool learningGoalExcited;
+  bool learningGoalExcited = false;
 
   bool learningGoalChecking(EvaluatedAgentsGroup*);
 

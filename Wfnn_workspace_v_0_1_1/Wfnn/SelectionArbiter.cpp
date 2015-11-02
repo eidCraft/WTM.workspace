@@ -19,13 +19,13 @@ SelectionArbiter::~SelectionArbiter()
 
 
 EvaluatedAgentsGroup*
-SelectionArbiter::select(EvaluatedAgentsGroup* initialGroup)
+SelectionArbiter::select(EvaluatedAgentsGroup* initialGroup, size_t amount)
 {
   EvaluatedAgentsGroup* finalGroup = new EvaluatedAgentsGroup();
 
-  selectNarrowWay(initialGroup, finalGroup);
+  selectTopAgents(initialGroup, finalGroup, amount);
 
-  selectWideWay(initialGroup, finalGroup);
+  //selectWideWay(initialGroup, finalGroup);
 
   return finalGroup;
 }
@@ -33,45 +33,17 @@ SelectionArbiter::select(EvaluatedAgentsGroup* initialGroup)
 
 
 void
-SelectionArbiter::selectNarrowWay(EvaluatedAgentsGroup* initialGroup,
-  EvaluatedAgentsGroup* finalGroup)
+SelectionArbiter::selectTopAgents(EvaluatedAgentsGroup* initialGroup,
+  EvaluatedAgentsGroup* finalGroup, size_t amount)
 {
-  vector<int> bestAgentsIndexes;
+  size_t nAgents = amount <= initialGroup->agents.size() ?
+    amount : initialGroup->agents.size();
 
-  double bestMark = 0;
-  int    bestMarkOwner;
-  bool   isNewMax;
-
-  int agensAmount = initialGroup->getAgentsAmount();
-  int marksAmount = initialGroup->getMarksAmount();
-
-  bool isAlreadyInBestAgents;
-  for (int i = 0; i < marksAmount; i++)
+  for (size_t iAgent = 0; iAgent != nAgents; iAgent++)
   {
-    for (int j = 0; j < agensAmount; j++)
-    {
-      isNewMax = ( (*initialGroup)[j]->marks[i] > bestMark);
-      if (isNewMax)
-      {
-        bestMark = (*initialGroup)[j]->marks[i];
-        bestMarkOwner = j;
-      }
-    }
-    isAlreadyInBestAgents = std::find(
-      bestAgentsIndexes.begin(), bestAgentsIndexes.end(), bestMarkOwner) !=
-      bestAgentsIndexes.end();
-
-    if (! isAlreadyInBestAgents)
-    {
-      bestAgentsIndexes.emplace_back(bestMarkOwner);
-    }
+    finalGroup->add(initialGroup->agents[iAgent]);
   }
 
-  int totalAgentsAmount = bestAgentsIndexes.size();
-  for (int i = 0; i < totalAgentsAmount; i++)
-  {
-    finalGroup->add((*initialGroup)[bestAgentsIndexes[i]]);
-  }
 }
 
 
@@ -81,3 +53,25 @@ SelectionArbiter::selectWideWay(EvaluatedAgentsGroup* initialGroup,
 {
 
 }
+
+//void
+//SelectionArbiter::sortByMark(EvaluatedAgentsGroup* evaluatedAgentsGroup)
+//{
+//  vector<int> totalMark (evaluatedAgentsGroup-> )
+
+
+
+
+//  for (int i = 0; i < A.Length; i++)
+//  {
+//    for (int j = i+1; j < A.Length; j++)
+//    {
+//      if (A[j] < A[i])
+//      {
+//        var temp = A[i];
+//        A[i] = A[j];
+//        A[j] = temp;
+//      }
+//    }
+//  }
+//}

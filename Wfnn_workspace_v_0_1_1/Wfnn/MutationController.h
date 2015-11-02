@@ -19,8 +19,8 @@ public:
 
   MutationController(MutationOptions*);
 
-  EvoAgentsGroup* mutateAgents(EvoAgentsGroup*);
-  EvoAgentsGroup* mutateAgents(EvaluatedAgentsGroup*);
+  //EvoAgentsGroup* mutateAgents(EvoAgentsGroup*);
+  EvaluatedAgentsGroup* mutateAgents(EvaluatedAgentsGroup*);
 
 private:
   MutationOptions* options;
